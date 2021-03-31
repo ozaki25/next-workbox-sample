@@ -12,7 +12,7 @@ export default function Home({ skills }: Props) {
         <title>Skill List</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main>
+      <main className="container mx-auto p-4">
         <table>
           {skills.map(({ id, name, count1, count2, count3, count4 }) => (
             <tr key={id}>
