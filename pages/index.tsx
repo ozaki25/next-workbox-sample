@@ -1,6 +1,11 @@
 import Head from 'next/head';
+import { Skill } from '../interfaces/skill';
 
-export default function Home() {
+interface Props {
+  skills: Skill[];
+}
+
+export default function Home({ skills }: Props) {
   return (
     <div>
       <Head>
@@ -8,8 +13,24 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <h1>Hello</h1>
+        <table>
+          {skills.map(({ id, name, count1, count2, count3, count4 }) => (
+            <tr key={id}>
+              <td>{name}</td>
+              <td>{count1}</td>
+              <td>{count2}</td>
+              <td>{count3}</td>
+              <td>{count4}</td>
+            </tr>
+          ))}
+        </table>
       </main>
     </div>
   );
+}
+
+export async function getServerSideProps() {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/skills`);
+  const skills = await res.json();
+  return { props: { skills } };
 }
